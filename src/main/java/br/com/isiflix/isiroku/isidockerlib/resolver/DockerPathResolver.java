@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DockerPathResolver {
 
-    private static String DOCKER_PATH = resolveDockerBinary();
+    private static String DOCKER_PATH;
 
     public static String getDockerPath() {
         if (DOCKER_PATH == null) {

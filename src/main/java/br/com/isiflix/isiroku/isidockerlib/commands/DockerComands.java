@@ -1,4 +1,4 @@
-package br.com.isiflix.isiroku.isidockerlib.comands;
+package br.com.isiflix.isiroku.isidockerlib.commands;
 
 public class DockerComands {
     public static final String LIST_RUNNING_CONTAINERS = "stats --no-stream --format \"{{.ID}}\\t{{.Name}}\\t{{.CPUPerc}}\\t{{.MemUsage}}\\t{{.MemPerc}}\"";
@@ -9,5 +9,6 @@ public class DockerComands {
     public static final String REMOVE_CONTAINER = "rm";
     public static final String REMOVE_IMAGE = "image rm";
     public static final String GET_CONTAINER_HEALTH = "inspect %s --format {{.State.Health.Status}}";
+    public static final String GET_LOGS = "logs %s";
 
 }
