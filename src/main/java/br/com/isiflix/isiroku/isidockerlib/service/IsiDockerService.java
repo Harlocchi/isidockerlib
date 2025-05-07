@@ -2,17 +2,15 @@ package br.com.isiflix.isiroku.isidockerlib.service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import br.com.isiflix.isiroku.isidockerlib.comands.DockerComands;
+import br.com.isiflix.isiroku.isidockerlib.commands.DockerComands;
 import br.com.isiflix.isiroku.isidockerlib.dto.ContainerData;
 import br.com.isiflix.isiroku.isidockerlib.dto.ContainerInfo;
 import br.com.isiflix.isiroku.isidockerlib.dto.ImageInfo;
 import br.com.isiflix.isiroku.isidockerlib.enums.ContainerHealthEnum;
-import br.com.isiflix.isiroku.isidockerlib.platform.OperatingSystem;
 import br.com.isiflix.isiroku.isidockerlib.resolver.DockerPathResolver;
 
 public class IsiDockerService {
@@ -67,10 +65,29 @@ public class IsiDockerService {
 		return new ContainerData(output);
 	}
 
-	public ContainerHealthEnum GetContainerHealthy(String container) {
+	public ContainerHealthEnum getContainerHealthy(String container) {
 		String output = runDockerCommand(DOCKER_PATH+" " + String.format(DockerComands.GET_CONTAINER_HEALTH, container));
 		output = output.replace("\n", "");
 		return ContainerHealthEnum.from(output);
+	}
+
+	public ContainerData getlogs(String container) {
+		String output = runDockerCommand(DOCKER_PATH+" " + String.format(DockerComands.GET_LOGS, container));
+		return new ContainerData(output);
+	}
+
+	public ContainerData getlogs(String container, Integer limit) {
+		String output = runDockerCommand(DOCKER_PATH+" " + String.format(DockerComands.GET_LOGS, container));
+		String[] outputLines = output.split("\n");
+
+		if(limit > outputLines.length){
+			new ContainerData(output);
+		}
+
+		int init = outputLines.length - limit;
+		String[] slicedOutput = Arrays.copyOfRange(outputLines, init, outputLines.length);
+
+		return new ContainerData(String.join("\n", slicedOutput));
 	}
 
 

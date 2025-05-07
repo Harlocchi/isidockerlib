@@ -8,8 +8,7 @@ public class MainClass {
 	public static void main(String[] args) {
 
 		IsiDockerService dockerService = new IsiDockerService();
-		System.out.println(dockerService.GetContainerHealthy("b52090736859"));
-		// ACEITA MEU PR AI PROF ISIDRÃO KKKK
+		System.out.println(dockerService.getlogs("b6cba75af5d392fa02bc1bf16773277ea07a27e4c6f03328025bca09f6894aa1", 3));
 				
 	}
 }
